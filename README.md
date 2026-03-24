@@ -502,41 +502,6 @@ Cache keys are generated from the widget class, resolver, current filters, and o
 
 ---
 
-## Resolver Pattern
-
-For decoupling data fetching from widget classes, use the resolver pattern:
-
-```php
-use LaravelDaily\FilaWidgets\Contracts\ResolvesBreakdownWidgetData;
-use LaravelDaily\FilaWidgets\Data\BreakdownWidgetData;
-
-class SalesBreakdownResolver implements ResolvesBreakdownWidgetData
-{
-    public function resolve(array $filters, array $options): BreakdownWidgetData
-    {
-        // $filters contains page filters (e.g., ['range' => 'last_30_days'])
-        // $options contains widget-specific options
-        return new BreakdownWidgetData(items: [...]);
-    }
-}
-
-class SalesWidget extends BreakdownWidget
-{
-    protected static ?string $dataResolver = SalesBreakdownResolver::class;
-    protected ?string $widgetLabel = 'Sales';
-}
-```
-
-Each widget type has a corresponding resolver contract:
-
-- `ResolvesBreakdownWidgetData`
-- `ResolvesSparklineTableWidgetData`
-- `ResolvesProgressWidgetData`
-- `ResolvesCompletionRateWidgetData`
-- `ResolvesHeatmapCalendarWidgetData`
-
----
-
 ## Value Formatting
 
 The `WidgetValueFormatter` supports three formats:
