@@ -2,11 +2,19 @@
 
 Reusable Filament dashboard widgets for Laravel. Five widget types — sparkline tables, breakdowns, progress bars, completion rate gauges, and heatmap calendars — that work on dashboards, resource pages, or any Filament page.
 
+![](https://laraveldaily.com/uploads/2026/03/filawidgets-mainexample-01.png)
+
+![](https://laraveldaily.com/uploads/2026/03/filawidgets-mainexample-01.png)
+
+---
+
 ## Requirements
 
 - PHP 8.2+
 - Laravel 11+
 - Filament 4+
+
+---
 
 ## Installation
 
@@ -18,7 +26,7 @@ The service provider auto-registers via Composer's package discovery.
 
 ### Custom Theme (Required)
 
-This package uses Tailwind CSS classes that are not included in Filament's default compiled styles. You need a [custom Filament theme](https://filamentphp.com/docs/4.x/styling/overview) so that Tailwind can scan the package's Blade views.
+This package uses Tailwind CSS classes that are not included in Filament's default compiled styles. You need a [custom Filament theme](https://filamentphp.com/docs/5.x/styling/overview) so that Tailwind can scan the package's Blade views.
 
 **1. Create a theme** (if you don't have one already):
 
@@ -38,15 +46,19 @@ Follow the instructions the command prints — it will add the theme to `vite.co
 @source '../../../../vendor/laraveldaily/filawidgets/resources/views/**/*';
 ```
 
+Add this last line with `vendor/laraveldaily/filawidgets`.
+
 **3. Rebuild your assets:**
 
 ```bash
 npm run build
 ```
 
+(*or `npm run dev`*)
+
 ---
 
-## Quick Start
+## Quick Start: Create Widgets
 
 Scaffold a widget with the artisan command:
 
@@ -91,21 +103,31 @@ class RevenueByRegionWidget extends BreakdownWidget
 }
 ```
 
-Register it on a dashboard or resource page:
+### Displaying Widgets
+
+**Dashboard (auto-discovery):** Filament auto-discovers widgets in `app/Filament/Widgets/`, so widgets created with `make:filawidget` appear on the default dashboard automatically — no registration needed.
+
+**Custom dashboard page:** If you have a [custom dashboard](https://filamentphp.com/docs/5.x/panels/dashboard), register widgets explicitly:
 
 ```php
-// Dashboard
 public function getWidgets(): array
 {
     return [RevenueByRegionWidget::class];
 }
+```
 
-// Resource page (pass range directly — no dashboard filters needed)
+**Resource or custom pages:** Add widgets to any page's header or footer:
+
+```php
 protected function getHeaderWidgets(): array
 {
-    return [RevenueByRegionWidget::make(['range' => 'last_30_days'])];
+    return [
+        RevenueByRegionWidget::make(['range' => 'last_30_days']),
+    ];
 }
 ```
+
+When `range` is passed directly, the widget does not depend on dashboard page filters.
 
 ---
 
@@ -463,22 +485,7 @@ Access it in your widget with `$this->getRangeFilter()`, which returns the resol
 
 Built-in range values: `'last_7_days'`, `'last_30_days'` (default), `'last_60_days'`.
 
-### Using Widgets Outside the Dashboard
 
-Widgets work on any Filament page — resource list pages, edit pages, custom pages:
-
-```php
-// In a ListRecords page
-protected function getHeaderWidgets(): array
-{
-    return [
-        RevenuePulseWidget::make(['range' => 'last_7_days']),
-        RevenueByRegionWidget::make(['range' => 'last_30_days']),
-    ];
-}
-```
-
-When `range` is passed directly, the widget does not depend on dashboard page filters.
 
 ---
 
