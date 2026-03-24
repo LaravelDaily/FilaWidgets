@@ -16,6 +16,34 @@ composer require laraveldaily/filawidgets
 
 The service provider auto-registers via Composer's package discovery.
 
+### Custom Theme (Required)
+
+This package uses Tailwind CSS classes that are not included in Filament's default compiled styles. You need a [custom Filament theme](https://filamentphp.com/docs/4.x/styling/overview) so that Tailwind can scan the package's Blade views.
+
+**1. Create a theme** (if you don't have one already):
+
+```bash
+php artisan make:filament-theme
+```
+
+Follow the instructions the command prints — it will add the theme to `vite.config.js` and your panel provider.
+
+**2. Add the package views to your theme CSS file** (`resources/css/filament/{panel}/theme.css`):
+
+```css
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+@source '../../../../vendor/laraveldaily/filawidgets/resources/views/**/*';
+```
+
+**3. Rebuild your assets:**
+
+```bash
+npm run build
+```
+
 ---
 
 ## Quick Start
