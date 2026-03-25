@@ -2,9 +2,9 @@
 
 Reusable Filament dashboard widgets for Laravel. Five widget types — sparkline tables, breakdowns, progress bars, completion rate gauges, and heatmap calendars — that work on dashboards, resource pages, or any Filament page.
 
-![](https://laraveldaily.com/uploads/2026/03/filawidgets-mainexample-01.png)
+![](https://laraveldaily.com/uploads/2026/03/filawidgets-mainexample-01-labels.png)
 
-![](https://laraveldaily.com/uploads/2026/03/filawidgets-mainexample-02.png)
+![](https://laraveldaily.com/uploads/2026/03/filawidgets-mainexample-02-labels.png)
 
 ---
 
